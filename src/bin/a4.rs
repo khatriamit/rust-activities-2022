@@ -2,7 +2,7 @@
 /*stack heap and box, box dereference */
 fn main() {
     /*
-       by default int, float, string are stored in the stack meomory
+       by default int, float are stored in the stack meomory
        box will allow us to allocate the memory inside heap
        variable also can be defined inside the inner scope
        as soon as the scope is completed the memory is also deallocated
