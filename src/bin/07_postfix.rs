@@ -25,7 +25,7 @@ fn size(stack: &Vec<String>) -> usize {
 }
 
 /*
-RULES for POSTFIX
+RULES for INFIX to POSTFIX evaluation
 
 1. Priorities of operators
     -> +,-
@@ -40,6 +40,11 @@ postfix
 4. If ")" pop elements until "(" and add popped elements to postfix
 
 5. If operand then just add to the postfix
+
+
+RULES for POSTFIX evaluation
+    1. If operand -> push to stack
+    2. If operation pop two statements perform operation and then push into the stack
 */
 
 fn priority(x: &String) -> u8 {
@@ -95,6 +100,37 @@ fn infix_to_postfix(input: Vec<String>) -> Vec<String> {
     postfix
 }
 
+fn operation(op1: String, op2: String, oper: String) -> f32 {
+    let op1 = op1.parse::<f32>().unwrap();
+    let op2 = op2.parse::<f32>().unwrap();
+    let result = match oper.as_str() {
+        "+" => op1 + op2,
+        "-" => op1 - op2,
+        "*" => op1 * op2,
+        "/" => op1 / op2,
+        "^" => op1.powf(op2),
+        _ => 0.0,
+    };
+    result
+}
+
+fn postfix_evaluation(postfix: Vec<String>) -> f32 {
+    let size_expr = postfix.len();
+    let mut result_stack: Vec<String> = new_stack(size_expr);
+    for i in postfix {
+        match i.as_str() {
+            "+" | "-" | "/" | "*" | "^" => {
+                let oper = i;
+                let op2 = pop(&mut result_stack).unwrap();
+                let op1 = pop(&mut result_stack).unwrap();
+                let result = operation(op1, op2, oper);
+                push(&mut result_stack, result.to_string(), size_expr);
+            }
+            _ => push(&mut result_stack, i.to_string(), size_expr),
+        }
+    }
+    pop(&mut result_stack).unwrap().parse::<f32>().unwrap()
+}
 fn individual_symbols(input_expr: String) -> Vec<String> {
     let mut tokenized_input: Vec<String> = Vec::new();
     let input_chars: Vec<char> = input_expr.chars().collect();
@@ -125,4 +161,5 @@ fn main() {
     println!("The original expression is: {:?}", input_expr);
     let input_expr_tokenized = individual_symbols(input_expr);
     let postfix = infix_to_postfix(input_expr_tokenized);
+    println!("The evaluated expression = {}", postfix_evaluation(postfix))
 }
