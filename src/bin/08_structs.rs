@@ -12,6 +12,25 @@ struct Person {
     salary: i32,
 }
 
+struct Numbers(i32, i32);
+
+impl Numbers {
+    fn greater(&self) -> i32 {
+        if self.0 > self.1 {
+            self.0
+        } else {
+            self.1
+        }
+    }
+
+    fn lesser(&self) -> i32 {
+        if self.0 < self.1 {
+            self.0
+        } else {
+            self.1
+        }
+    }
+}
 impl Person {
     fn new() -> Self {
         Self {
@@ -59,5 +78,13 @@ fn main() {
     println!(
         "The person3 structure values are {}, {}, {}",
         person3.name, person3.citizenship, person3.salary
+    );
+
+    let some_numbers = Numbers(32, 16);
+    println!("The numbers here are: {}", some_numbers.0);
+    println!(
+        "The greater number is {} and lesser number is {}",
+        some_numbers.greater(),
+        some_numbers.lesser()
     );
 }
