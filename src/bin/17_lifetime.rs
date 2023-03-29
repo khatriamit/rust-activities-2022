@@ -29,6 +29,13 @@ struct Person<'a> {
     age: i32,
 }
 
+fn use_vec<'a>(vec1: &'a [i32], vec2: &'a [i32]) -> &'a [i32] {
+    if 2 > 5 {
+        vec1
+    } else {
+        vec2
+    }
+}
 fn main() {
     let s_1 = "Hello";
     let v;
@@ -56,4 +63,8 @@ fn main() {
     //     "The name of the person is {} and his age is {}",
     //     john.name, john.age
     // );
+
+    let some_vec = vec![1, 2, 3, 4, 5, 6, 7, 8, 9];
+    let retun_vec = use_vec(&some_vec, &some_vec);
+    println!("{:?}", retun_vec);
 }
