@@ -1,5 +1,5 @@
 // ------------------------------------------------------
-//     - Lifetimes
+//     - Closures
 //          - Basic Syntax
 //          - Closure with inputs
 //          - Some variable for different closure
