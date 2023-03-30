@@ -38,4 +38,14 @@ fn main() {
         "The position of given value is: {}",
         find_extreme_r_posn.unwrap()
     );
+
+    let check_max = a.iter().max();
+    println!("The max value in vec is: {}", check_max.unwrap());
+
+    let check_min = a.iter().min();
+    println!("The min value in vec is: {}", check_min.unwrap());
+
+    let mut iter = a.iter().rev();
+    println!("The rev is: {:?}", iter);
+    println!("The 1st vale form rev is: {:?}", iter.next());
 }
